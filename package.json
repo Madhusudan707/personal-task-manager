@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "npm run build && netlify deploy --prod"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -29,7 +30,9 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.40.1",
     "@types/uuid": "^9.0.2",
-    "depcheck": "^1.4.5"
+    "depcheck": "^1.4.5",
+    "netlify-cli": "^16.1.0"
   }
 }

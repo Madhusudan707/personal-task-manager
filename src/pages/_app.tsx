@@ -1,7 +1,7 @@
 import { NextComponentType } from "next";
 import { AppProps } from "next/app";
 
-import { AuthProvider } from "../contexts/authContext";
+import { AuthProvider } from "@/contexts/";
 import "globals.css";
 
 // ...

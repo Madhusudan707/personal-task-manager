@@ -12,7 +12,7 @@ export const UserProfile: React.FC = () => {
 
   useEffect(() => {
     if (loading) {
-      console.log("loading");
+      // console.log("loading");
     }
   }, [router.isReady, loading]);
 

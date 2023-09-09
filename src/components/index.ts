@@ -16,3 +16,4 @@ export { TaskCard } from "./TaskCard";
 export { Modal } from "./Modal";
 export { Badge } from "./Badge";
 export { ErrorMessage } from "./ErrorMessage";
+export { StatusCheckbox } from "./StatusCheckbox";

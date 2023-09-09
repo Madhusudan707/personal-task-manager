@@ -7,12 +7,18 @@ export const Button: React.FC<ButtonProps> = ({
   className = "",
   children,
   onClick,
+  type = "button",
   ...rest
 }) => {
   const buttonClasses = `${baseStyles} ${variantStyles[variant]} ${className}`;
 
   return (
-    <button onClick={onClick} className={buttonClasses.trim()} {...rest}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={buttonClasses.trim()}
+      {...rest}
+    >
       {children}
     </button>
   );

@@ -5,9 +5,7 @@ export const useSaveOrUpdate = () => {
   const { updateCollection } = useFirestoreDataUpdate();
 
   const isCallSaveOrUpdate = (label: string, formData: any) => {
-    label === "save"
-      ? addDataToCollection(formData)
-      : updateCollection(formData);
+    label === "save" ? addDataToCollection(formData) : updateCollection();
   };
 
   return {

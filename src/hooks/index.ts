@@ -12,3 +12,6 @@ export { useTaskFilter } from "@/hooks/useTaskFilter";
 export { useClickOutsideListener } from "@/hooks/useClickOutsideListener";
 export { useFormValidation } from "@/hooks/useFormValidation";
 export { useAuthRedirect } from "@/hooks/userAuthRedirect";
+export { usePageTitle } from "@/hooks/usePageTitle";
+export { usePagename } from "@/hooks/usePagename";
+export { useStatusCheckbox } from "@/hooks/useStatusCheckbox";

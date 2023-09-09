@@ -1,17 +1,32 @@
-import React, { ChangeEventHandler, MouseEventHandler, ReactNode } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  ChangeEventHandler,
+  DetailedHTMLProps,
+  MouseEventHandler,
+  MutableRefObject,
+  ReactNode,
+} from "react";
 
 export type BadgeProps = {
   children: ReactNode;
   className?: string;
 };
 
+enum ButtonTypes {
+  "button",
+  "submit",
+  "reset",
+  undefined,
+}
+
 export type ButtonProps = {
   variant?: "primary" | "secondary" | "danger" | "none";
   label: string;
   active: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
-  className: string | "";
+  className?: string;
   children: ReactNode;
+  type?: "button" | "submit" | "reset";
 };
 
 export type FlexboxContainerProps = {
@@ -29,12 +44,12 @@ export type Task = {
   doc_id: string;
 };
 export type formDataObject = {
-  title: string;
-  description: string;
-  status: string;
-  user_id: string;
-  id: string;
-  doc_id: string;
+  title?: string;
+  description?: string;
+  status?: string;
+  user_id?: string;
+  id?: string;
+  doc_id?: string;
 };
 export type FormProps = {
   HeadingLabel: string;
@@ -53,9 +68,9 @@ export type InputProps = {
   type?: string;
   placeholder?: string;
   className: string;
-  value: string | undefined;
+  value: string | undefined | null | void;
   name: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
 export type LabelProps = {
@@ -86,6 +101,7 @@ export type SelectProps = {
   value: string | undefined;
   name: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
+  isShowDefault?: boolean;
 };
 
 export type TabProps = {
@@ -103,7 +119,7 @@ export type TaskCardProps = {
 };
 
 export type TaskListProps = {
-  filter: string | "";
+  filter: string;
 };
 
 export type TextAreaProps = {
@@ -135,4 +151,11 @@ export type Errors = {
 
 export type ErrorProps = {
   errorText: string;
+};
+
+export type pageTitleProps = {
+  pageName: string;
+};
+export type taskCountProps = {
+  taskCount?: number;
 };

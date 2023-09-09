@@ -1,4 +1,4 @@
-import { useModal } from "@/hooks";
+import { useModal, usePageTitle, usePagename } from "@/hooks";
 import {
   Header,
   FlexBoxContainer,
@@ -8,7 +8,6 @@ import {
   Button,
   Paragraph,
 } from "@/components";
-
 const Dashboard = () => {
   const tabContents = [
     <TaskList key="all" filter="" />,
@@ -17,6 +16,8 @@ const Dashboard = () => {
     <TaskList key="pending" filter="pending" />,
   ];
   const { isModalOpen, openModal, closeModal } = useModal();
+  const { pageName } = usePagename();
+  usePageTitle(pageName);
 
   return (
     <FlexBoxContainer className="justify-center flex-col text-4xl p-8 bg-white  w-full">
@@ -34,7 +35,7 @@ const Dashboard = () => {
         </Button>
       </FlexBoxContainer>
 
-      <Tab tabs={["All", "Completed", "Progress", "Pending"]}>
+      <Tab tabs={[`All`, `Completed`, `Progress`, `Pending`]}>
         {tabContents}
       </Tab>
 

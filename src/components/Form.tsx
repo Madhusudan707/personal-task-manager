@@ -1,11 +1,8 @@
+import { useEffect } from "react";
 import { FormProps } from "@/types";
-import {
-  useSaveOrUpdate,
-  useFormData,
-  useFormValidation,
-  useModal,
-} from "@/hooks";
-import { statusOptions, initialFormData } from "@/LocalData";
+import { useFormValidation, useModal } from "@/hooks";
+import { statusOptions } from "@/LocalData";
+import { useDataForm } from "@/contexts";
 import {
   FlexBoxContainer,
   Heading,
@@ -25,12 +22,16 @@ export const Form: React.FC<FormProps> = ({
   label,
   onClose,
 }) => {
-  const { isCallSaveOrUpdate } = useSaveOrUpdate();
-  const { formData, handleInputChange, prefilledFormData } =
-    useFormData(initialFormData);
+  const { errors, handleSubmit, formData, handleInputChange } =
+    useFormValidation();
+  const { updateDataForm, titleRef, descriptionRef, statusRef, docIDRef } =
+    useDataForm();
+  const { closeModal, isModalOpen } = useModal();
 
-  const { errors } = useFormValidation();
-  console.log(prefilledFormData);
+  useEffect(() => {
+    if (!isModalOpen) closeModal();
+    console.log(isModalOpen);
+  }, [isModalOpen]);
   return (
     <FlexBoxContainer className="bg-white flex-col border rounded shadow-lg px-8 py-4 w-3/4 gap-y-8">
       <FlexBoxContainer className="justify-between">
@@ -67,17 +68,21 @@ export const Form: React.FC<FormProps> = ({
             type="text"
             className="shadow appearance-none border text-xl rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter title"
-            value={label === "update" ? "custom title 1" : formData?.title}
+            value={label === "update" ? updateDataForm.title : formData?.title}
             onChange={handleInputChange}
             name="title"
+            ref={titleRef}
           />
           <Input
             type="hidden"
             className=""
             placeholder=""
-            value={formData?.doc_id}
-            onChange={() => {}}
+            value={
+              label === "update" ? updateDataForm.doc_id : formData?.doc_id
+            }
+            onChange={handleInputChange}
             name="doc_id"
+            ref={docIDRef}
           />
           {errors.title && <ErrorMessage errorText={errors.title} />}
         </FlexBoxContainer>
@@ -85,7 +90,7 @@ export const Form: React.FC<FormProps> = ({
         <FlexBoxContainer className="flex-col gap-y-2">
           <Label
             className="block text-gray-700 text-xl font-bold"
-            htmlFor="title"
+            htmlFor="description"
             text="Description"
           />
 
@@ -94,9 +99,14 @@ export const Form: React.FC<FormProps> = ({
             placeholder="Enter description"
             rows={8}
             cols={70}
-            value={label === "update" ? "customDesc1" : formData?.description}
+            value={
+              label === "update"
+                ? updateDataForm.description
+                : formData?.description
+            }
             name="description"
             onChange={handleInputChange}
+            ref={descriptionRef}
           />
           {errors.description && (
             <ErrorMessage errorText={errors.description} />
@@ -113,9 +123,13 @@ export const Form: React.FC<FormProps> = ({
           <Select
             options={statusOptions}
             className="shadow appearance-none border rounded w-full text-xl py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={label === "update" ? "pending" : formData?.status}
+            value={
+              label === "update" ? updateDataForm.status : formData?.status
+            }
+            isShowDefault={label !== "update"}
             name="status"
             onChange={handleInputChange}
+            ref={statusRef}
           />
         </FlexBoxContainer>
         {errors.status && <ErrorMessage errorText={errors.status} />}
@@ -123,7 +137,7 @@ export const Form: React.FC<FormProps> = ({
       <Button
         label={label}
         active={true}
-        onClick={() => isCallSaveOrUpdate(label, formData)}
+        onClick={() => handleSubmit(label, formData)}
         variant="primary"
         className={`w-1/3 bg-blue-500 self-end hover:bg-blue-700 text-xl text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
       >

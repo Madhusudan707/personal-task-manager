@@ -19,7 +19,6 @@ export const useUserData = (uid: string | null | undefined) => {
 
           if (userDocSnapshot.exists()) {
             const userData = userDocSnapshot.data() as UserData;
-            console.log(userData);
             setUserData(userData);
           }
         } catch (error) {

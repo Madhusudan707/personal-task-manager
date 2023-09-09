@@ -11,10 +11,7 @@ export const useFirestoreDataDelete = () => {
     setDeletionStatus("deleting");
 
     try {
-      console.log("sf", id);
-
       const response = await deleteDoc(doc(firestore, "task", id));
-      console.log(response);
       setDeletionStatus("success");
     } catch (error) {
       console.error("Error deleting document:", error);

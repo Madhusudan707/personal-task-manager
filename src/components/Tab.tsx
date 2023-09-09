@@ -2,11 +2,9 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FlexBoxContainer, Button } from ".";
 import { TabProps } from "@/types";
-
 export const Tab: React.FC<TabProps> = ({ tabs, children }) => {
   const [activeTab, setActiveTab] = useState(0);
   const tabIds = tabs.map(() => uuidv4());
-
   return (
     <>
       <FlexBoxContainer className="justify-center flex-col items-center text-4xl p-8 bg-white  w-full">

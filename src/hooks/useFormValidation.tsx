@@ -2,25 +2,27 @@ import { useState } from "react";
 import { Errors } from "@/types";
 import { useFormData, useSaveOrUpdate } from "@/hooks";
 import { initialFormData } from "@/LocalData";
+import { useDataForm } from "@/contexts";
 
 export const useFormValidation = () => {
   const { formData, handleInputChange } = useFormData(initialFormData);
   const { isCallSaveOrUpdate } = useSaveOrUpdate();
+  const { titleRef, descriptionRef, statusRef } = useDataForm();
 
   const [errors, setErrors] = useState<Errors>({});
 
   const validateForm = (): boolean => {
     const newErrors: Errors = {};
-
-    if (!formData.title) {
+    console.log(titleRef.current?.value);
+    if (!formData.title && titleRef.current?.value === "") {
       newErrors.title = "Title is required.";
     }
 
-    if (!formData.description) {
+    if (!formData.description && descriptionRef.current?.value === "") {
       newErrors.description = "Description is required.";
     }
 
-    if (!formData.status) {
+    if (!formData.status && statusRef.current?.value === "") {
       newErrors.status = "Status is required.";
     }
 
@@ -36,5 +38,5 @@ export const useFormValidation = () => {
     }
   };
 
-  return { formData, errors, handleInputChange, validateForm, handleSubmit };
+  return { formData, errors, validateForm, handleInputChange, handleSubmit };
 };

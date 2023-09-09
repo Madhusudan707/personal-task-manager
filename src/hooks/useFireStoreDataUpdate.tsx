@@ -1,39 +1,37 @@
 import { useState } from "react";
-import { Task } from "@/types";
 import { doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../firebaseConfig";
 import { useModal } from "@/hooks";
+import { useDataForm } from "@/contexts";
 
 export const useFirestoreDataUpdate = () => {
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [success, setSuccess] = useState(false);
   const { closeModal } = useModal();
-  const updateCollection = async (task: Task) => {
+  const { titleRef, descriptionRef, statusRef, docIDRef } = useDataForm();
+  const updateCollection = async () => {
     try {
-      setIsUpdating(true);
+      setIsUpdated(true);
       setError(null);
       setSuccess(false);
-      console.log(task);
-      // const taskRef = doc(firestore, "task", task.doc_id);
-      // console.log(taskRef);
-      // const response = await updateDoc(taskRef, {
-      //   title: task.title,
-      //   description: task.description,
-      //   status: task.status,
-      // });
-      // console.log(response);
-
-      console.log("useFSDataUpdate update data");
+      if (!docIDRef.current?.value) {
+        throw new Error("docIDRef is undefined");
+      }
+      const taskRef = doc(firestore, "task", docIDRef.current.value);
+      await updateDoc(taskRef, {
+        title: titleRef.current?.value,
+        description: descriptionRef.current?.value,
+        status: statusRef.current?.value,
+      });
       closeModal();
-      setSuccess(true);
     } catch (error: any) {
       console.log(error);
       setError(error);
     } finally {
-      setIsUpdating(false);
+      setIsUpdated(false);
     }
   };
 
-  return { updateCollection, isUpdating, error, success };
+  return { updateCollection, isUpdated, error, success };
 };

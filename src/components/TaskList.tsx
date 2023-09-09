@@ -3,7 +3,6 @@ import {
   useTaskData,
   useFirestoreDataDelete,
   useModal,
-  useFormData,
   useTaskFilter,
 } from "@/hooks";
 
@@ -16,13 +15,9 @@ export const TaskList: React.FC<TaskListProps> = ({ filter }) => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const { filteredTasks } = useTaskFilter(tasks, filter);
 
-  console.log(tasks);
   return (
     <>
-      <FlexBoxContainer
-        key={filter}
-        className="w-full flex-col  gap-y-8 px-4 items-center py-8"
-      >
+      <FlexBoxContainer className="w-full flex-col  gap-y-8 px-4 items-center py-8">
         {filteredTasks.map((task: Task) => (
           <TaskCard
             key={task.id}

@@ -51,7 +51,7 @@ export const DataFormProvider: React.FC<DataFormProviderProps> = ({
       taskCount,
       setTaskCount,
     };
-  }, [updateDataForm]);
+  }, [updateDataForm, taskCount]); // Include taskCount in the dependency array
 
   return (
     <DataFormContext.Provider value={contextValue}>

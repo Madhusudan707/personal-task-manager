@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { FormProps } from "@/types";
-import { useFormValidation, useModal } from "@/hooks";
+import { useFormValidation } from "@/hooks";
 import { statusOptions } from "@/LocalData";
 import { useDataForm } from "@/contexts";
 import {
@@ -26,12 +25,7 @@ export const Form: React.FC<FormProps> = ({
     useFormValidation();
   const { updateDataForm, titleRef, descriptionRef, statusRef, docIDRef } =
     useDataForm();
-  const { closeModal, isModalOpen } = useModal();
 
-  useEffect(() => {
-    if (!isModalOpen) closeModal();
-    console.log(isModalOpen);
-  }, [isModalOpen]);
   return (
     <FlexBoxContainer className="bg-white flex-col border rounded shadow-lg px-8 py-4 w-3/4 gap-y-8">
       <FlexBoxContainer className="justify-between">

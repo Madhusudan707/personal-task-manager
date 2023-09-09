@@ -10,12 +10,9 @@ export const useTaskFilter = (tasks: Task[], filter: string) => {
       : tasks;
   }, [tasks, filter]);
 
-  const count = filteredTasks.length;
-
-  // Call setTaskCount immediately when the count changes
   useEffect(() => {
-    setTaskCount({ taskCount: count });
-  }, [count]);
+    setTaskCount((prevCount) => ({ taskCount: filteredTasks.length }));
+  }, [filteredTasks.length, setTaskCount]);
 
   return {
     filteredTasks,

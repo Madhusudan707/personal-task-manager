@@ -60,6 +60,8 @@ export const DataFormProvider: React.FC<DataFormProviderProps> = ({
   );
 };
 
+DataFormProvider.displayName = "DataFormProvider";
+
 export const useDataForm = () => {
   const context = useContext(DataFormContext);
   if (context === undefined) {

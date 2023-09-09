@@ -5,13 +5,13 @@ import React, {
   useState,
   useMemo,
 } from "react";
-import firebase from "../../firebaseConfig";
+import { firebase } from "../../firebaseConfig";
 
-interface AuthContextType {
+type AuthContextType = {
   user: firebase.User | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
-}
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -21,7 +21,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<firebase.User | null>(null);
 
   useEffect(() => {
-    console.log(process.env.NEXT_FIREBASE_API_KEY);
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       setUser(user);
     });

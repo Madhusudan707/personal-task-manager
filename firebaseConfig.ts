@@ -1,3 +1,6 @@
+// config/firebase.ts
+import { initializeApp } from "firebase/app";
+import { getFirestore, Firestore } from "firebase/firestore";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
@@ -14,5 +17,8 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-console.log(firebaseConfig);
-export default firebase;
+
+const app = initializeApp(firebaseConfig);
+const firestore: Firestore = getFirestore(app);
+
+export { app, firestore, firebase };

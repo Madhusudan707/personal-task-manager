@@ -33,7 +33,7 @@
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.40.1",
     "@types/lodash.debounce": "^4.0.7",
-    "@types/uuid": "^9.0.2",
+    "@types/uuid": "^9.0.3",
     "depcheck": "^1.4.5",
     "netlify-cli": "^16.1.0"
   }

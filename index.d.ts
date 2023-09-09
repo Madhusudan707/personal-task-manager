@@ -16,3 +16,15 @@ declare module "uuid" {
   }): string;
   export function v5(name: string | Buffer, namespace: string | Buffer): string;
 }
+
+declare module "lodash.debounce" {
+  import { DebounceSettings } from "lodash";
+
+  function debounce<T extends (...args: any[]) => any>(
+    func: T,
+    wait?: number,
+    options?: DebounceSettings
+  ): T;
+
+  export default debounce;
+}
